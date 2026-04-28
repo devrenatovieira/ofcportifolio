@@ -21,18 +21,15 @@ Variáveis necessárias em `backend/.env`:
 
 ```env
 PORT=4000
-MONGO_URI=mongodb://127.0.0.1:27017/renato_portfolio
+MONGO_URI=mongodb://127.0.0.1:27017/sua_database
 JWT_SECRET=troque_este_segredo_em_producao
 JWT_EXPIRES_IN=7d
 FRONTEND_URL=https://seu-dominio.com
-ADMIN_EMAIL=renato.vieira@renato.com
-ADMIN_PASSWORD=Transire2022
+ADMIN_EMAIL=seu-email@dominio.com
+ADMIN_PASSWORD=sua-senha-segura
 ```
 
-O seed cria o admin inicial:
-
-- Email: `renato.vieira@renato.com`
-- Senha: `Transire2022`
+O seed cria o admin inicial com as credenciais configuradas em `backend/.env`.
 
 Altere a senha e o `JWT_SECRET` antes de usar em produção. Depois do primeiro acesso, o email e a senha do admin também podem ser alterados em `/admin/configuracoes`.
 
