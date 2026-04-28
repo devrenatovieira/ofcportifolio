@@ -1,14 +1,18 @@
 import { motion } from "framer-motion";
 import {
+  BarChart3,
   CheckCircle2,
   Code2,
   Cpu,
   Database,
   Gauge,
+  Globe2,
   Linkedin,
+  MessageCircle,
   Monitor,
   PlugZap,
   Rocket,
+  Search,
   Server,
   ShieldCheck,
   Sparkles,
@@ -21,6 +25,7 @@ import { ProjectCard } from "../components/ProjectCard";
 import { SectionTitle } from "../components/SectionTitle";
 import { ServiceCard } from "../components/ServiceCard";
 import { TechBadge } from "../components/TechBadge";
+import { Seo } from "../lib/Seo";
 import { portfolioClients, portfolioProjects, portfolioServices, portfolioStats, profile } from "../data/portfolio";
 
 const technologies = [
@@ -52,6 +57,25 @@ const processPreview = [
   ["02", "UI", "Estrutura visual, componentes e estados."],
   ["03", "Código", "React, responsividade, API e interações."],
   ["04", "Entrega", "Ajustes finais, build e orientação de uso."]
+];
+
+const quickSiteOffer = [
+  ["Performance", "Estrutura leve em React/Vite, imagens otimizadas e foco em Core Web Vitals.", Gauge],
+  ["SEO técnico", "Meta tags, schema, sitemap, robots e headings pensados para buscas locais e comerciais.", Search],
+  ["Conversão", "CTA claro, prova social, WhatsApp visível e formulário simples para reduzir fricção.", MessageCircle]
+];
+
+const caseMetrics = [
+  ["Carter Loja", "Base de e-commerce pública com UI premium, navegação objetiva e arquitetura pronta para escala.", "React, Next.js, Tailwind, Prisma"],
+  ["Checklist Transire", "Fluxos mobile para padronizar rotinas internas, reduzir controle manual e melhorar acompanhamento.", "React Native, Expo, Firebase"],
+  ["Aura ID", "Validação por QR Code com retorno visual direto para acelerar confirmações em operação real.", "Autenticação, QR Code, Mobile"]
+];
+
+const blogIdeas = [
+  "Como acelerar sites React com Vite para melhorar conversão",
+  "SEO técnico para portfólio de desenvolvedor frontend",
+  "LCP e CLS: como performance afeta pedidos de orçamento",
+  "Como criar uma landing page mobile-first que gera clientes"
 ];
 
 function DashboardMockup() {
@@ -124,23 +148,28 @@ export function Home() {
 
   return (
     <>
+      <Seo
+        title="Renato Vieira | Desenvolvedor Frontend especialista em performance"
+        description="Desenvolvedor Frontend especialista em React e Vite. Criação de sites rápidos, modernos, mobile-first e focados em gerar clientes."
+        url="/"
+        image="/portfolio-assets/images/dev.renato.png"
+      />
       <section className="relative overflow-hidden">
-        <div className="hero-orbit left-[8%] top-28 h-40 w-40" />
-        <div className="hero-orbit right-[6%] top-52 h-72 w-72 [animation-delay:1.4s]" />
         <Container className="grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[1.02fr_0.98fr]">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan/25 bg-cyan/10 px-4 py-2 text-sm font-bold text-cyan">
               <Sparkles size={16} />
-              {profile.role} disponível para projetos freelance
+              React, Vite, SEO técnico e performance web
             </p>
             <h1 className="max-w-5xl text-4xl font-black leading-tight tracking-tight text-white md:text-7xl">
-              {profile.headline.split(" produtos reais.")[0]} <span className="gradient-text">produtos reais.</span>
+              Desenvolvedor Frontend especialista em sites rápidos que geram clientes.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">{profile.summary}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <GradientButton href={profile.whatsappBudgetUrl} className="px-7 py-4" target="_blank" rel="noreferrer">Fazer orçamento agora</GradientButton>
-              <GradientButton to="/projetos" variant="secondary" className="px-7 py-4">Ver projetos</GradientButton>
-              <GradientButton href={profile.cvUrl} variant="secondary" className="px-7 py-4" download>Baixar CV</GradientButton>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+              Crio landing pages, portfólios e interfaces React com carregamento leve, UX mobile-first e SEO técnico para transformar visitas em conversas comerciais.
+            </p>
+            <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
+              <GradientButton href={profile.whatsappBudgetUrl} className="min-h-12 px-7 py-4" target="_blank" rel="noreferrer">Solicitar orçamento</GradientButton>
+              <GradientButton to="/projetos" variant="secondary" className="min-h-12 px-7 py-4">Ver estudos de caso</GradientButton>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               {technologies.map(([label, Icon]) => (
@@ -181,11 +210,38 @@ export function Home() {
       </section>
 
       <section className="section">
+        <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan">Criação de sites rápidos</p>
+            <h2 className="mt-4 text-3xl font-black leading-tight text-white md:text-5xl">
+              Uma página bonita só vale se carregar rápido, explicar bem e gerar contato.
+            </h2>
+            <p className="mt-5 leading-8 text-slate-300">
+              Posicionamento, performance e conversão entram juntos desde o início: título claro, oferta objetiva, prova de trabalho, SEO técnico e CTA sem atrito.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <GradientButton to="/servicos" className="min-h-12">Conhecer serviços</GradientButton>
+              <GradientButton to="/contato" variant="secondary" className="min-h-12">Planejar meu site</GradientButton>
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {quickSiteOffer.map(([title, text, Icon], index) => (
+              <GlowCard key={title} delay={index * 0.05} className="p-6">
+                <Icon className="text-cyan" />
+                <h3 className="mt-5 text-lg font-black text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">{text}</p>
+              </GlowCard>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
         <Container>
           <SectionTitle
             eyebrow="O que eu faço"
-            title="Frontend para web, mobile e sistemas corporativos"
-            text="Transformo ideias, layouts e necessidades de produto em interfaces modernas, funcionais e prontas para uso real."
+            title="Serviços frontend com foco em velocidade, clareza e resultado"
+            text="Transformo ideias, layouts e necessidades de produto em interfaces modernas, funcionais e preparadas para SEO, mobile e conversão."
           />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {portfolioServices.map((service, index) => (
@@ -197,10 +253,26 @@ export function Home() {
 
       <section className="section bg-white/[0.03]">
         <Container>
-          <SectionTitle eyebrow="Projetos" title="Cases para mostrar raciocínio visual, estrutura e execução" text="A vitrine combina projetos autorais e estudos práticos com foco em interface, responsividade e experiência." />
+          <SectionTitle eyebrow="Projetos" title="Estudos de caso com problema, solução e resultado esperado" text="Projetos reais e estudos aplicados com foco em interface, responsividade, operação e experiência do usuário." />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <ProjectCard key={project._id} project={project} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <SectionTitle eyebrow="Métricas e impacto" title="O que cada projeto precisa melhorar" text="Quando dados reais ainda não estão públicos, trabalho com metas claras: reduzir atrito, acelerar carregamento e aumentar contatos qualificados." />
+          <div className="grid gap-5 lg:grid-cols-3">
+            {caseMetrics.map(([title, text, stack], index) => (
+              <GlowCard key={title} delay={index * 0.05} className="p-7">
+                <BarChart3 className="text-cyan" />
+                <h3 className="mt-5 text-xl font-black text-white">{title}</h3>
+                <p className="mt-3 leading-7 text-slate-300">{text}</p>
+                <p className="mt-5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold text-cyan">{stack}</p>
+              </GlowCard>
             ))}
           </div>
         </Container>
@@ -212,7 +284,7 @@ export function Home() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {portfolioClients.map((client) => (
               <div key={client.name} className="glass grid h-28 place-items-center rounded-2xl p-5">
-                <img src={client.logo} alt={client.name} className="max-h-20 max-w-full object-contain opacity-85 grayscale transition hover:opacity-100 hover:grayscale-0" />
+                <img loading="lazy" src={client.logo} alt={client.name} className="max-h-20 max-w-full object-contain opacity-85 grayscale transition hover:opacity-100 hover:grayscale-0" />
               </div>
             ))}
           </div>
@@ -241,7 +313,7 @@ export function Home() {
             {[
               ["Frontend core", "HTML5, CSS3, JavaScript, TypeScript, React.js, React Native e Next.js", Monitor],
               ["Produto", "Firebase Auth, Firestore, Functions, REST APIs, Git e GitHub", Server],
-              ["Qualidade", "UI/UX, layouts modernos, responsividade e boas praticas", Gauge],
+              ["Qualidade", "UI/UX, layouts modernos, responsividade e boas práticas", Gauge],
               ["Base técnica", "Suporte técnico, sistemas internos e noção de backend", Cpu]
             ].map(([title, text, Icon]) => (
               <GlowCard key={title} className="p-6">
@@ -286,9 +358,26 @@ export function Home() {
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan">Frontend</p>
                 <h3 className="mt-4 text-2xl font-black">{title}</h3>
                 <p className="mt-3 min-h-20 leading-7 text-slate-300">{text}</p>
-              <GradientButton href={profile.whatsappProjectUrl} className="mt-6 w-full" target="_blank" rel="noreferrer">Conversar sobre isso</GradientButton>
+                <GradientButton href={profile.whatsappProjectUrl} className="mt-6 w-full" target="_blank" rel="noreferrer">Conversar sobre isso</GradientButton>
               </GlowCard>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <SectionTitle eyebrow="Blog para SEO" title="Conteúdos pensados para atrair clientes que pesquisam por frontend, React e performance" text="A estratégia editorial combina dúvidas comerciais, SEO técnico e temas com intenção de contratação." />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {blogIdeas.map((idea, index) => (
+              <GlowCard key={idea} delay={index * 0.04} className="p-5">
+                <Globe2 className="text-cyan" />
+                <h3 className="mt-4 text-base font-black text-white">{idea}</h3>
+              </GlowCard>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <GradientButton to="/blog" variant="secondary">Ver pauta completa</GradientButton>
           </div>
         </Container>
       </section>
@@ -298,7 +387,7 @@ export function Home() {
           <div className="premium-border rounded-3xl bg-[linear-gradient(135deg,rgba(34,211,238,0.16),rgba(139,92,246,0.12),rgba(244,114,182,0.08))] p-8 text-center md:p-14">
             <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan">Vamos construir?</p>
             <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-black text-white md:text-5xl">
-              Me chama com sua ideia e eu transformo em uma interface frontend pronta para uso real.
+              Me chama com sua ideia e eu transformo em um site rápido, moderno e pronto para captar clientes.
             </h2>
             <p className="mx-auto mt-5 max-w-2xl leading-8 text-slate-300">{profile.headline}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

@@ -10,6 +10,7 @@ const nav = [
   ["Sobre", "/sobre"],
   ["Serviços", "/servicos"],
   ["Projetos", "/projetos"],
+  ["Blog", "/blog"],
   ["Processo", "/processo"],
   ["Contato", "/contato"]
 ];
@@ -20,6 +21,7 @@ export function PublicLayout() {
   return (
     <div className="relative min-h-screen text-slate-100">
       <div className="noise" />
+      <div className="site-frame" aria-hidden="true" />
       <AnimatedBackground />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/72 backdrop-blur-xl">
         <div className="container flex h-20 items-center justify-between">
@@ -75,6 +77,13 @@ export function PublicLayout() {
         <Outlet />
       </main>
 
+      <div className="fixed bottom-5 right-5 z-50 flex items-center gap-3 rounded-full bg-cyan px-4 py-3 text-sm font-black text-ink shadow-[0_24px_50px_-30px_rgba(14,165,233,0.8)]">
+        <a href={profile.whatsappProjectUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2">
+          <Rocket size={18} />
+          WhatsApp
+        </a>
+      </div>
+
       <footer className="border-t border-white/10 bg-ink/70 py-12">
         <div className="container grid gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
@@ -82,9 +91,7 @@ export function PublicLayout() {
               <span className="grid h-10 w-10 place-items-center rounded-lg bg-cyan text-ink">{profile.initials}</span>
               <span className="text-xl text-white">{profile.name}</span>
             </div>
-            <p className="mt-4 max-w-md text-sm leading-7 text-slate-400">
-              {profile.headline}
-            </p>
+            <p className="mt-4 max-w-md text-sm leading-7 text-slate-400">{profile.headline}</p>
           </div>
           <div>
             <p className="font-black text-white">Contato</p>

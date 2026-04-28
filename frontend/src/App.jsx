@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { CodeStartupIntro } from "./components/CodeStartupIntro";
 import { LoadingState } from "./components/LoadingState";
@@ -19,14 +19,33 @@ const Process = lazy(() => import("./pages/Process").then((module) => ({ default
 const ProjectDetails = lazy(() => import("./pages/ProjectDetails").then((module) => ({ default: module.ProjectDetails })));
 const Projects = lazy(() => import("./pages/Projects").then((module) => ({ default: module.Projects })));
 const Services = lazy(() => import("./pages/Services").then((module) => ({ default: module.Services })));
+const Blog = lazy(() => import("./pages/Blog").then((module) => ({ default: module.Blog })));
 
 export function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showIntro, setShowIntro] = useState(() => !window.location.pathname.startsWith("/admin"));
+  const [showIntro, setShowIntro] = useState(() => {
+    const introShown = sessionStorage.getItem("introShown");
+    return !introShown && !window.location.pathname.startsWith("/admin");
+  });
+  const [showReloadLoader, setShowReloadLoader] = useState(
+    () => !showIntro && !window.location.pathname.startsWith("/admin")
+  );
+
+  useEffect(() => {
+    if (!showReloadLoader) return undefined;
+
+    const timer = window.setTimeout(() => {
+      setShowReloadLoader(false);
+    }, 1050);
+
+    return () => window.clearTimeout(timer);
+  }, [showReloadLoader]);
+
   const finishIntro = useCallback(
     (goHome = false) => {
       setShowIntro(false);
+      sessionStorage.setItem("introShown", "true");
       if (goHome && location.pathname !== "/") navigate("/");
     },
     [location.pathname, navigate]
@@ -35,6 +54,11 @@ export function App() {
   return (
     <>
       {showIntro && <CodeStartupIntro onFinish={finishIntro} />}
+      {showReloadLoader && (
+        <div className="fixed inset-0 z-[90] grid place-items-center bg-ink px-4">
+          <LoadingState />
+        </div>
+      )}
       <div className={showIntro ? "pointer-events-none opacity-0" : "opacity-100 transition-opacity duration-700"}>
         <Suspense fallback={<div className="section container"><LoadingState /></div>}>
           <Routes>
@@ -44,6 +68,7 @@ export function App() {
               <Route path="/servicos" element={<Services />} />
               <Route path="/projetos" element={<Projects />} />
               <Route path="/projetos/:slug" element={<ProjectDetails />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/processo" element={<Process />} />
               <Route path="/contato" element={<Contact />} />
             </Route>

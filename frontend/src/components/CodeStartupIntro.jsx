@@ -3,35 +3,43 @@ import { CheckCircle2, Code2, GitBranch, Radio, Server, Sparkles, Terminal } fro
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const codeLines = [
-  '// Frontend Portfolio',
-  'const developer = "Renato Vieira";',
+  "import { Rocket, Sparkles } from 'lucide-react';",
   "",
-  "function welcome() {",
-  '  return "Bem-vindo ao meu portfolio.";',
+  "const developer = 'Renato Vieira';",
+  "const stack = ['React', 'Vite', 'Performance'];",
+  "",
+  "export function BoasVindas() {",
+  "  return (",
+  "    <section className='hero-conversao'>",
+  "      <Sparkles />",
+  "      <h1>Bem-vindo ao meu portfolio.</h1>",
+  "      <p>Sites rápidos, modernos e prontos para gerar clientes.</p>",
+  "      <button>Solicitar orçamento <Rocket /></button>",
+  "    </section>",
+  "  );",
   "}",
-  "",
-  "welcome();"
 ];
 
-const command = "npm run dev";
+const command = "npm run dev -- --host 0.0.0.0";
 
 const terminalOutput = [
-  "Installing digital experience...",
-  "Compiling interface...",
-  "Injecting premium animations...",
-  "Starting portfolio server...",
+  "Criando experiencia de boas-vindas...",
+  "Aplicando paleta cyan/violet...",
+  "Otimizando copy para conversao...",
+  "Montando componentes React...",
+  "Preparando animacoes de entrada...",
   "",
   "> frontend-portfolio@1.0.0 dev",
-  "> vite",
+  "> vite --host 0.0.0.0",
   "",
-  "API:     /api",
+  "Local:   http://localhost:5176/",
   "Status:  Portfolio online",
-  "Ready in 1.2s",
+  "Ready in 0.9s",
   "",
-  "Launching frontend experience..."
+  "Abrindo boas-vindas do Renato Vieira..."
 ];
 
-const files = ["src/", "components/", "pages/", "App.jsx", "Home.jsx", "api.js"];
+const files = ["src/", "components/", "CodeStartupIntro.jsx", "pages/", "Home.jsx", "BoasVindas.jsx", "Seo.jsx"];
 
 function useTypedText(text, active, speed = 18, onDone) {
   const [value, setValue] = useState("");
@@ -93,10 +101,10 @@ export function CodeStartupIntro({ onFinish }) {
   const typedCode = useTypedText(
     fullCode,
     phase === "code",
-    16,
-    () => window.setTimeout(() => setPhase("terminal"), 280)
+    7,
+    () => window.setTimeout(() => setPhase("terminal"), 120)
   );
-  const typedCommand = useTypedText(command, phase === "terminal", 42, () => setPhase("output"));
+  const typedCommand = useTypedText(command, phase === "terminal", 18, () => setPhase("output"));
 
   useEffect(() => {
     const previous = document.body.style.overflow;
@@ -112,13 +120,13 @@ export function CodeStartupIntro({ onFinish }) {
     const timers = terminalOutput.map((line, index) =>
       window.setTimeout(() => {
         setVisibleOutputs((current) => [...current, line]);
-      }, index * 155)
+      }, index * 70)
     );
 
     const finishTimer = window.setTimeout(() => {
       setClosing(true);
-      window.setTimeout(() => onFinish(false), 620);
-    }, terminalOutput.length * 155 + 780);
+      window.setTimeout(() => onFinish(false), 360);
+    }, terminalOutput.length * 70 + 360);
 
     return () => {
       timers.forEach(window.clearTimeout);
@@ -138,7 +146,7 @@ export function CodeStartupIntro({ onFinish }) {
           className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#05070d] p-3 text-slate-100 md:p-6"
           initial={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04, filter: "blur(18px)" }}
-          transition={{ duration: 0.62, ease: "easeInOut" }}
+          transition={{ duration: 0.36, ease: "easeInOut" }}
         >
           <div className="noise" />
           <div className="tech-grid absolute inset-0 opacity-60" />
@@ -154,10 +162,10 @@ export function CodeStartupIntro({ onFinish }) {
           />
 
           <motion.div
-            className="relative w-full max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-[#0b1020]/92 shadow-[0_30px_140px_rgba(34,211,238,0.18)] backdrop-blur-2xl md:rounded-3xl"
+            className="premium-border relative w-full max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-[#0b1020]/92 shadow-[0_30px_140px_rgba(34,211,238,0.18)] backdrop-blur-2xl md:rounded-3xl"
             initial={{ opacity: 0, y: 28, rotateX: 8 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.72, ease: "easeOut" }}
+            transition={{ duration: 0.42, ease: "easeOut" }}
           >
             <div className="flex h-11 items-center justify-between border-b border-white/10 bg-[#111827]/90 px-4">
               <div className="flex items-center gap-2">
@@ -167,11 +175,11 @@ export function CodeStartupIntro({ onFinish }) {
               </div>
               <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-400 sm:flex">
                 <Sparkles size={13} className="text-cyan" />
-                Frontend Dev Studio
+                Visual Studio Code - portfolio-renato
               </div>
               <div className="flex items-center gap-2 text-xs text-slate-500">
                 <Radio size={13} className="text-emerald-300" />
-                live
+                dev server
               </div>
             </div>
 
@@ -186,7 +194,7 @@ export function CodeStartupIntro({ onFinish }) {
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.08 * index }}
-                        className={`rounded-lg px-3 py-2 text-sm ${file === "Home.jsx" ? "bg-cyan/10 text-cyan" : "text-slate-400"}`}
+                        className={`rounded-lg px-3 py-2 text-sm ${file === "BoasVindas.jsx" ? "bg-cyan/10 text-cyan" : "text-slate-400"}`}
                       >
                         {file}
                       </motion.div>
@@ -204,13 +212,16 @@ export function CodeStartupIntro({ onFinish }) {
                   <div className="flex h-10 items-center border-b border-white/10 bg-[#111827]/70">
                     <div className="flex h-full items-center gap-2 border-r border-white/10 bg-[#0b1120] px-4 text-sm text-slate-200">
                       <Code2 size={15} className="text-cyan" />
-                      Portfolio.jsx
+                      BoasVindas.jsx
+                    </div>
+                    <div className="hidden h-full items-center border-r border-white/10 px-4 text-sm text-slate-500 sm:flex">
+                      Home.jsx
                     </div>
                   </div>
 
                   <div className="relative p-4 md:p-6">
                     <div className="pointer-events-none absolute right-6 top-6 hidden rounded-2xl border border-cyan/20 bg-cyan/10 px-4 py-3 text-xs font-bold text-cyan md:block">
-                      frontend interface boot
+                      criando boas-vindas
                     </div>
                     <div className="font-mono">
                       {codeLines.map((line, index) => (
